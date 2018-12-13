@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700');
+/*=========================================================
+      PROGRESS INDICATOR
+=========================================================== */
+*{
+  font-family: 'PT Sans', sans-serif;
+}
+
+/* Variable */
+$state-width: 20px;
+$state-height: 20px;
+
+/* Color Variable */
+$clr-progress-default:      #D8D9D9;
+$clr-progress-in-progress:  #c3c3c3;
+$clr-progress-done:         #09C484;
+$clr-progress-canceled:     #E50238;
+$clr-progress-text-step:    #FFFFFF;
+$clr-progress-text:         #283745;
+
+// Headline
+h1{
+  font-weight: 400;
+  color: $clr-progress-text;
+}
+
+p{color: $clr-progress-text}
+
+/*  In Progress Animation */
+@keyframes circleScale {
+	0% {transform: scale(0);  }
+	50% { transform: scale(1); }
+  100% { transform: scale(0); }
+}
+
+.state__icon{
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
+    width: $state-width;
+    height: $state-height;
+    border-radius: 50%;
+    background-color: $clr-progress-default;
+    color: $clr-progress-text-step;
+    position: relative;
+    z-index: 1;
+}
+
+
+.progress-indicator{
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    width: 100%;
+    overflow: unset;
+
+    &__step{
+        flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1 0 0;
+        text-align: center;
+        list-style: none;
+        position: relative;
+        align-self: flex-end;
+        color: $clr-progress-text;
+
+        &:first-child .progress-indicator__state{
+            width: 50%;
+            &:after{
+                left: unset;
+                right: -50%;
+            }            
+        }
+
+        &:last-child .progress-indicator__state{
+            width: 50%; 
+            &:after{
+                left: -50%;
+            }         
+        }
+    }
+
+    &__title{        
+        padding: 0px 10px;
+        font-size: 14px;
+        
+        &--bold{
+            font-weight: bold;
+        }
+    }
+
+    &__status{
+        height: 20px;
+        font-size: 11px;
+    }
+
+    &__text-responsive{
+        display: none;
+    }
+
+    &__state{
+        display: inline-block;
+        text-align: center;
+        margin: 0 auto;
+        width: 100%;
+        position: relative;
+        
+        &:after{
+            content: "";
+            top: 7px;
+            height: 5px;
+            width: 100%;
+            background-color: $clr-progress-default;
+            position: absolute;
+            left: 0;
+        }
+
+        &--done,
+        &--active{
+            .state__icon{
+                background-color: $clr-progress-done;
+
+                &:after{
+                    content: "";
+                    display: block;
+                    width: 4px;
+                    height: 8px;
+                    border-width: 0 2px 2px 0;
+                    border-style: solid;
+                    border-color: $clr-progress-text-step;
+                    transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    margin-left: 7px;
+                    margin-top: 4px;
+                }
+            }
+            &.progress-indicator__state:after{
+                background-color: $clr-progress-done;
+            }
+        }
+
+        &--canceled{
+            .state__icon{
+                background-color: $clr-progress-canceled;
+
+                &:before{
+                    content: "";
+                    position: absolute;
+                    background-color: $clr-progress-text-step;
+                    height: 14px;
+                    width: 2px;
+                    transform: rotate(-45deg);
+                    -ms-transform: rotate(-45deg);
+                    top: 3px;
+                }
+
+                &:after{
+                    content: "";
+                    width: 2px;
+                    height: 14px;
+                    position: absolute;
+                    top: 3px;
+                    left: 9px;
+                    transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    background-color: $clr-progress-text-step;
+                }
+            }
+            &.progress-indicator__state:after{
+                background-color: $clr-progress-canceled;
+            }
+        }
+
+        &--in-progress{
+            .state__icon{            
+                &:before{                
+                    width: $state-width;
+                    height: $state-height;
+                    border-radius: 50%;
+                    background-color: $clr-progress-in-progress;
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    margin-left: -($state-width)/2;
+                    margin-top: -($state-height)/2;
+                    
+                    -webkit-animation: circleScale 2s infinite ease-in-out;
+                    animation: circleScale 2s infinite ease-in-out;
+                }
+            }
+
+            &.progress-indicator__state:after{
+                background-color: $clr-progress-default;
+            }
+        }
+    }
+}
+
+@mixin breakpoint($point) {
+	  @if $point == all_mobile {
+	     @media (min-width: 0) and (max-width: 767px) { @content ; }
+	  }
+}
+
+@include breakpoint(all_mobile) {
+    .progress-indicator{
+        display: inline-block;
+    
+        &__step{
+            width: 100%;
+            height: 80px;
+            display: table;
+            text-align: left;
+
+            &:first-child .progress-indicator__state{
+                width: 40px;
+                &:after{
+                    height: 50%;
+                    left: 7px;
+                    top: 10px;
+                }            
+            }
+    
+            &:last-child .progress-indicator__state{
+                width: 40px;
+                &:after{                     
+                    height: 50%;
+                    left: 7px;
+                    top: -30px;
+                }         
+            }
+        }
+
+        &__text-responsive{
+            display: table-cell;
+            text-align: left;
+            vertical-align: top;
+
+            .progress-indicator__title{
+                display: block;
+                margin-top: 0;
+                padding: 0;
+            }
+            .progress-indicator__status{
+                display: block;
+                font-size: 11px;
+            }
+        }
+
+        &__title,
+        &__status{
+            display: none;
+        }
+
+        &__state{
+            width: 40px;
+            text-align: left;
+            margin: 0 auto;
+            height: 100%;
+            position: relative;
+            display: table-cell;
+            
+            &:after{
+                left: 7px;
+                height: 100%;
+                width: 5px;
+                position: absolute;
+                top: -30px;
+            }
+        }
+    }
+}

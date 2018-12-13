@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Step Progress Indicator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+</head>
+<body>
+        <h1>Completely fluid and responsive dotted progress indicator</h1>
+        <p><b>With four states:</b> Default/Not Achieved, Done, In Progress, Canceled.</p>
+        <ul class="progress-indicator">
+          <li class="progress-indicator__step">
+                <p class="progress-indicator__title progress-indicator__title--bold">Name of the first step</p>
+                <div class="progress-indicator__state
+                            progress-indicator__state--done">   
+                     <i class="state__icon"></i>     
+                </div>
+                <p class="progress-indicator__status">Done</p>
+                <div class="progress-indicator__text-responsive">
+                    <p class="progress-indicator__title progress-indicator__title--bold">Name of the first step</p>
+                    <p class="progress-indicator__status">Done</p>
+                </div>
+            </li>
+          
+          <li class="progress-indicator__step">
+                <p class="progress-indicator__title progress-indicator__title--bold">Name of the second step</p>
+                <div class="progress-indicator__state
+                            progress-indicator__state--canceled">   
+                     <i class="state__icon"></i>     
+                </div>
+                <p class="progress-indicator__status">Canceled</p>
+                <div class="progress-indicator__text-responsive">
+                    <p class="progress-indicator__title progress-indicator__title--bold">Name of the second step</p>
+                    <p class="progress-indicator__status">Canceled</p>
+                </div>
+            </li>
+          
+          <li class="progress-indicator__step">
+                <p class="progress-indicator__title progress-indicator__title--bold">Name of the third step</p>
+                <div class="progress-indicator__state
+                            progress-indicator__state--in-progress">   
+                     <i class="state__icon"></i>     
+                </div>
+                <p class="progress-indicator__status">In Progress</p>
+                <div class="progress-indicator__text-responsive">
+                    <p class="progress-indicator__title progress-indicator__title--bold">Name of the third step</p>
+                    <p class="progress-indicator__status">In Progress</p>
+                </div>
+            </li>
+          
+            <li class="progress-indicator__step">
+                <p class="progress-indicator__title progress-indicator__title--bold">Name of the first step</p>
+                <div class="progress-indicator__state"
+                     [ngClass]="getStepStatusClass(step.status)">   
+                     <i class="state__icon"></i>     
+                </div>
+                <p class="progress-indicator__status">Default</p>
+                <div class="progress-indicator__text-responsive">
+                    <p class="progress-indicator__title progress-indicator__title--bold">Name of the first step</p>
+                    <p class="progress-indicator__status">Default</p>
+                </div>
+            </li>
+        </ul>    
+</body>
+</html>
